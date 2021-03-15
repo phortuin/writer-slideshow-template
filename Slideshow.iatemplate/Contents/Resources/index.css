@@ -1,0 +1,410 @@
+@font-face {
+	font-family: 'Adelle Sans';
+	src: url('fonts/AdelleSans-Regular.woff2') format('woff2'),
+		 url('fonts/AdelleSans-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+@font-face {
+	font-family: 'Adelle Sans';
+	src: url('fonts/AdelleSans-Bold.woff2') format('woff2'),
+		 url('fonts/AdelleSans-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: block;
+}
+
+@font-face {
+	font-family: 'MonoLisa';
+	src: url('fonts/MonoLisa-Regular.woff2') format('woff2'),
+		 url('fonts/MonoLisa-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 137.5%;
+	background-color: white;
+	color: black;
+	overflow-y: hidden;
+	padding: 0 !important;
+}
+
+html.night-mode {
+	background-color: #111;
+	color: #ddd;
+	-webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 1024px) {
+	html {
+		font-size: 150%;
+	}
+}
+@media (min-width: 1280px) {
+	html {
+		font-size: 162.5%;
+	}
+}
+@media (min-width: 1440px) {
+	html {
+		font-size: 175%;
+	}
+}
+@media (min-width: 1600px) {
+	html {
+		font-size: 187.5%;
+	}
+}
+@media (min-width: 1920px) {
+	html {
+		font-size: 212.5%;
+	}
+}
+
+body {
+	margin: 0;
+	font-family: 'Adelle Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+	font-feature-settings: 'kern', 'liga';
+	-webkit-text-size-adjust: 100%;
+	font-size: 100%;
+	line-height: 1.5;
+	transition: transform 200ms ease-in-out;
+}
+
+h1 {
+	font-size: 2.5em;
+}
+
+h2 {
+	font-size: 1.5em;
+}
+
+h3 {
+	font-size: 1.25em;
+}
+
+h1, h2, h3 {
+	text-align: center;
+}
+
+ul, ol {
+	margin: 0 0 1.25rem;
+}
+
+b, strong {
+	font-weight: bold;
+	font-size: 0.9375em;
+}
+
+blockquote {
+	position: relative;
+	margin: 0 0 1.25rem;
+	padding: 1.25rem;
+	background-color: #eee;
+}
+
+html.night-mode blockquote {
+	background-color: #2a2a2a;
+}
+
+blockquote code {
+	background-color: white;
+}
+
+html.night-mode blockquote code {
+	background-color: #444;
+}
+
+p, center {
+	font-size: 1em;
+	margin: 0 0 1.25rem;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+figure {
+	display: block;
+	margin: 0 0 1.25rem;
+}
+
+figcaption {
+	padding: 1.25rem;
+	background: #eee;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 1rem;
+	border-radius: 0.125em;
+}
+
+a {
+	color: black;
+	text-decoration: underline;
+}
+
+a:not(:empty)[href^=http]:after {
+	content: " ↗"
+}
+
+html.night-mode a {
+	color: #ddd;
+}
+
+code {
+	font-family: 'MonoLisa', Menlo, Consolas, monospace;
+	padding: 0.1875em 0.3125em;
+	background-color: #eee;
+	color: black;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+	-webkit-font-smoothing: antialiased;
+	border-radius: 0.125em;
+	font-size: 0.875em;
+}
+
+html.night-mode code {
+	background-color: #2a2a2a;
+	color: #eee;
+}
+
+pre {
+	background: hsla(0,0%,0%,0.875);
+	padding: 0.5em;
+	overflow: hidden;
+	margin: 0 0 1.25rem;
+	border-radius:  0.25em;
+}
+
+html.night-mode pre {
+	background: #2a2a2a;
+}
+
+pre code {
+	background: none;
+	border: 0;
+	color: white;
+	font-size: 0.875em;
+}
+
+sub,
+sup {
+	font-size: 0.875em;
+	line-height: 1;
+	vertical-align: 0;
+}
+
+sub {
+	vertical-align: bottom;
+}
+
+sup {
+	vertical-align: top;
+}
+
+del,
+del code {
+	text-shadow: 1px 1px 0 white, -1px 1px 0 white, 2px 0 0 white, -2px 0 0 white;
+}
+
+del {
+	opacity: 0.3;
+}
+
+del code {
+	text-decoration: line-through;
+}
+
+html.night-mode del,
+html.night-mode del code {
+	text-shadow: 1px 1px 0 #111, -1px 1px 0 #111, 2px 0 0 #111, -2px 0 0 #111;
+}
+
+table {
+	border-collapse: collapse;
+	font-size: 0.875em;
+	margin-bottom: 1.25rem;
+	width: 100%;
+}
+
+thead tr {
+	background: transparent linear-gradient(to top, black 0, transparent 1.8px, transparent 3px, black 3px, transparent 4.8px);
+}
+
+html.night-mode thead tr {
+	background: transparent linear-gradient(to top, #eee 0, transparent 1.8px, transparent 3px, #eee 3px, transparent 4.8px);
+}
+
+th,
+td {
+	font-feature-settings: "tnum";
+	padding: 0.375rem 0.5rem;
+	vertical-align: top;
+}
+
+th {
+	padding-bottom: 0.5625rem;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	font-size: 0.9375em;
+	text-align: left;
+}
+
+tbody tr:first-child td {
+	padding-top: 0.375rem;
+}
+
+tr:first-child td {
+	border-top: none;
+}
+
+tr {
+	background: transparent linear-gradient(to bottom, black 0, transparent 1.8px);
+}
+
+html.night-mode tr {
+	background: transparent linear-gradient(to bottom, #eee 0, transparent 1.8px);
+}
+
+tbody tr:first-child {
+	background: none;
+}
+
+td:first-child,
+th:first-child {
+	padding-left: 0;
+}
+
+td:last-child,
+th:last-child {
+	padding-right: 0;
+}
+
+/** Prism */
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #736f70; /** gray */
+}
+
+.token.punctuation {
+	color: #e3dfe0; /** off white */
+}
+
+.namespace {
+	color: #e74d3b; /** red */
+}
+
+.token.property {
+	color: #00aeef; /** cyan */
+}
+
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #a1d820; /** green */
+}
+
+.token.boolean,
+.token.number {
+	color: #e74d3b; /** red */
+}
+
+.token.tag {
+	color: #e74d3b; /** red */
+}
+
+.token.selector {
+	color: #a1d820; /** green */
+}
+
+.token.attr-name {
+	color: #a1d820; /** green */
+}
+
+.token.string {
+	color: #f1c40e; /** yellow */
+}
+
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #00aeef; /** cyan */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f1c40e; /** yellow */
+}
+
+.token.atrule,
+.token.attr-value {
+	color: #f1c40e; /** yellow */
+}
+
+.token.function {
+	color: #a1d820; /** green */
+}
+
+.token.keyword {
+	color: #00aeef; /** cyan */
+}
+
+.token.regex {
+	color: #e74d3b; /** red */
+}
+
+.token.important {
+	color: #e74d3b; /** cyan */
+}
+
+.token.regex {
+	font-style: italic;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+/* SLIDES */
+
+[data-slide] {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+[data-slide] > * {
+	width: 75vw;
+}

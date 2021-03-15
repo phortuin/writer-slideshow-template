@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" media="all" href="index.css">
+	<script src="prism.js" data-manual></script>
+	<script>
+		/**
+		 * Writer adds the code block’s language as a css class to the `code`
+		 * element, but Prism expects the class name to be `language-<language>`.
+		 * This function adds a `language-` prefix to all css classes.
+		 */
+		function fixCodeBlockClassnames() {
+			const codeBlocks = Array.from(document.querySelectorAll('pre code'));
+			codeBlocks.forEach(codeBlock => {
+				codeBlock.className = codeBlock.className.split(' ').map(className => {
+					return `language-${className}`;
+				}).join(' ');
+			});
+		}
+
+		/**
+		 * Ideally, the spacing before and after an em dash should be less wide
+		 * than a normal space and in some cases stick with the word they are
+		 * next to (eg. when used to designate the author of a quote). Here,
+		 * we replace normal spaces with &ThinSpace and add zero width no-break
+		 * spaces where applicable (&#8288; https://en.wikipedia.org/wiki/Word_joiner)
+		 * Line 1: add thin spaces before/after emdash in "word—word"
+		 * Line 2: replace spaces in " — " with thin spaces
+		 * Line 3: replace space in "— " with thin space, and add word joiner
+		 * Line 4: replace space in " —" with thin space, and add word joiner
+		 */
+		function improveEmdashSpacing() {
+			const paragraphs = Array.from(document.querySelectorAll('p'));
+			paragraphs.forEach(paragraph => {
+				let html = paragraph.innerHTML;
+				// 8288 = zero width no-break space https://en.wikipedia.org/wiki/Word_joiner
+				html = html.replace(/([^\s])—([^\s])/g, '$1&ThinSpace;&mdash;&ThinSpace;$2');
+				html = html.replace(/( |&nbsp;)—( |&nbsp;)/g, '&ThinSpace;&mdash;&ThinSpace;');
+				html = html.replace(/—( |&nbsp;)/g, '&#8288;&mdash;&ThinSpace;');
+				html = html.replace(/( |&nbsp;)—/g, '&ThinSpace;&mdash;&#8288;');
+				paragraph.innerHTML = html;
+			});
+		}
+
+		/**
+		 * The <hr> element is used as a slide delimiter. By slicing up the
+		 * document’s html on every <hr> element, and glueing it back together
+		 * with a `<div data-slide><!-- slide content --></div>` structure,
+		 * we get control over CSS styling per slide, and can create logic
+		 * that lets users navigate between slides.
+		 */
+		function createSlides() {
+			const slides = document.body.innerHTML.split('<hr>');
+			const replacedHtml = slides.join('</div><div data-slide>');
+			document.body.innerHTML = `<div data-slide>${replacedHtml}</div>`;
+		}
+
+		/**
+		 * Listens to keyboard interaction to move to previous and next slides.
+		 * It makes sure the slideshow does not move beyond the first and last
+		 * slide. Several keys are accepted as input to move back & forward.
+		 */
+		function behaveLikeSlideshow() {
+			const previousKeys = [/* backspace */ 8, /* left */ 37, /* up */ 38];
+			const nextKeys = [/* space */ 32, /* right */ 39, /* down */ 40];
+
+			// slideIndex is 0 based, so we subtract 1 from the number of slides
+			const numSlides = document.body.querySelectorAll('[data-slide]').length - 1
+
+			document.body.addEventListener('keydown', event => {
+				let slideIndex = findSlide();
+
+				// Move back & forward
+				if (previousKeys.includes(event.keyCode)) slideIndex--;
+				if (nextKeys.includes(event.keyCode)) slideIndex++;
+
+				// Stick to lower (0) and upper (numSlides) boundaries
+				if (slideIndex < 0) slideIndex = 0;
+				if (slideIndex >= numSlides) slideIndex = numSlides;
+
+				// Update the transform style. A CSS transition effect will
+				// take care of smooth movement. Note the `-` minus sign:
+				// the document moves down (negative translateY) when the
+				// slide number goes up.
+				document.body.style.transform = `translateY(-${slideIndex}00vh)`;
+			})
+		}
+
+		/**
+		 * Finds the slide index by regexing the transform style of the body.
+		 * We use `translateY(-<slideIndex>00vh)` to move the body up or down
+		 * the viewport height for every slide. Therefore, the offset divided
+		 * by 100vh is the exact slide index. So, we regex that number out of
+		 * the body offset: `translateY(-1400vh)` => slide 14
+		 */
+		function findSlide() {
+			let regex = /(\d+)00vh/
+			try {
+				const slideIndex = regex.exec(document.body.style.transform)[1]
+				return Number(slideIndex) || 0
+			} catch(error) { // No match found
+				return 0
+			}
+		}
+
+		/**
+		 * When the page is ready and Writer has (re-)rendered the content,
+		 * we can start running our fixes, improvements and attach listeners.
+		 */
+		document.addEventListener("DOMContentLoaded", function(){
+			document.body.addEventListener('ia-writer-change', function(event) {
+				fixCodeBlockClassnames();
+				improveEmdashSpacing();
+				createSlides();
+				behaveLikeSlideshow();
+				Prism.highlightAll();
+			});
+		});
+	</script>
+</head>
+<body data-document>&nbsp;</body>
+</html>
