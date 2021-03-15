@@ -34,7 +34,6 @@
 			const paragraphs = Array.from(document.querySelectorAll('p'));
 			paragraphs.forEach(paragraph => {
 				let html = paragraph.innerHTML;
-				// 8288 = zero width no-break space https://en.wikipedia.org/wiki/Word_joiner
 				html = html.replace(/([^\s])—([^\s])/g, '$1&ThinSpace;&mdash;&ThinSpace;$2');
 				html = html.replace(/( |&nbsp;)—( |&nbsp;)/g, '&ThinSpace;&mdash;&ThinSpace;');
 				html = html.replace(/—( |&nbsp;)/g, '&#8288;&mdash;&ThinSpace;');
