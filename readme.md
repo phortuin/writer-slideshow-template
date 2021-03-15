@@ -20,7 +20,7 @@ When going into preview mode in iA Writer, each slide is rendered 'full screen'.
 
 ## Installation and usage
 
-- Clone this repository or download as a zip
+- Clone this repository or [download as a zip](https://github.com/phortuin/writer-slideshow-template/releases)
 - Double-click the `Slideshow.iatemplate` template in Finder
 
 To use the template, do any of these things:
