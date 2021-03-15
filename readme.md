@@ -69,3 +69,6 @@ The template is responsive to window size, but ignores zoom/text size settings. 
 **Why can’t I...**\
 If you want more features, I can heartily recommend [Deckset](https://www.deckset.com/).
 
+## License
+
+[MIT](/license)
